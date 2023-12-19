@@ -102,6 +102,6 @@ docker exec ${CONTAINER_PREFIX}-ctfd-1 python /CTFd/embedded_CTFd/challenge_Expo
 #echo "About to import challenges..."
 # Copy the import_challenges.sh script to the Docker container
 docker cp import_challenges.sh ${CONTAINER_PREFIX}-ctfd-1:/opt/ctfcli_project/
-exit
+
 # Execute the script inside the Docker container
 docker exec ${CONTAINER_PREFIX}-ctfd-1 /bin/bash /opt/ctfcli_project/import_challenges.sh
