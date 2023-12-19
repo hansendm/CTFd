@@ -23,7 +23,7 @@ systemctl start docker
 systemctl enable docker
 
 # Define the directory containing your docker-compose.yml
-SOURCE_DIR=C/PATH/TO/embedded_CTFd
+SOURCE_DIR=$(cd $(dirname "$0") && pwd)
 
 # Define the destination directory for CTFd
 DEST_DIR=/CTFd
