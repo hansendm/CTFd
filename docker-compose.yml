@@ -1,0 +1,36 @@
+version: '3.8.0'
+
+services:
+  ctfd:
+    build: .
+    ports:
+      - "8000:8000"
+    depends_on:
+      - db
+      - cache
+    environment:
+      - SECRET_KEY=YOUR_SECRET_KEY_HERE
+      - UPLOAD_FOLDER=/var/uploads
+      - LOG_FOLDER=/var/log/CTFd
+      - DATABASE_URL=mysql+pymysql://root:ctfd@db/ctfd
+      - REDIS_URL=redis://cache:6379
+      - WORKERS=2
+      - THREADS=1
+    volumes:
+      - ./CTFd/uploads:/var/uploads
+      - ./CTFd/logs:/var/log/CTFd
+      - /CTFd/embedded_CTFd:/CTFd/embedded_CTFd 
+
+  db:
+    image: mysql:8.1
+    environment:
+      - MYSQL_ROOT_PASSWORD=ctfd
+      - MYSQL_DATABASE=ctfd
+    volumes:
+      - db-data:/var/lib/mysql
+
+  cache:
+    image: redis:latest
+
+volumes:
+  db-data:

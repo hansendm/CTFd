@@ -1,0 +1,26 @@
+# Stop all Docker containers
+docker stop $(docker ps -a -q)
+# Remove all Docker containers
+docker rm $(docker ps -a -q)
+# Remove all Docker images
+docker rmi $(docker images -q)
+# Remove all Docker volumes
+docker volume rm $(docker volume ls -q)
+# Remove all Docker networks (except default ones)
+docker network prune
+# remove the CTFd directory
+rm -rf /CTFd
+
+
+# enter sql in container
+docker exec -it ctfd-db-1 mysql -u root -pctfd
+
+# use the following commands in sql to navigate through it
+USE ctfd;
+SHOW TABLES;
+DESCRIBE table_name; -- Replace with the name of the table that stores tokens
+SELECT * FROM table_name; -- Replace with the name of the table that stores tokens
+
+
+# enter terminal in main ctfd container
+docker exec -it ctfd-ctfd-1 bash
